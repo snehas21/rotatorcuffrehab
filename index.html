@@ -370,6 +370,128 @@
       color: var(--muted);
       line-height: 1.7;
     }
+
+    /* ── PICKLEBALL RULES ── */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .rules-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .rules-card .rules-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .rules-card h3 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .rules-card.allowed { border-color: rgba(52,211,153,0.3); }
+    .rules-card.allowed h3 { color: var(--green); }
+
+    .rules-card.limit { border-color: rgba(251,191,36,0.3); }
+    .rules-card.limit h3 { color: var(--amber); }
+
+    .rules-card.ideal { border-color: rgba(79,142,247,0.3); }
+    .rules-card.ideal h3 { color: var(--accent); }
+
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rules-list li {
+      font-size: 0.88rem;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .rules-list li::before {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .allowed .rules-list li::before { content: '✓'; color: var(--green); font-weight: 700; }
+    .limit   .rules-list li::before { content: '↓'; color: var(--amber); font-weight: 700; }
+
+    .after-play {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .after-play h3 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      margin-bottom: 14px;
+    }
+
+    .after-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .after-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(124,92,191,0.2);
+      border: 1px solid rgba(124,92,191,0.4);
+      color: var(--accent2);
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-text {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+      padding-top: 4px;
+    }
+
+    .step-text strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .step-text span {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
   </style>
 </head>
 <body>
@@ -386,6 +508,7 @@
     <button class="tab" data-tab="week1">Week 1</button>
     <button class="tab" data-tab="week2">Week 2</button>
     <button class="tab" data-tab="week3">Week 3</button>
+    <button class="tab" data-tab="pickleball">🏓 Pickleball Rules</button>
   </div>
 </div>
 
@@ -930,6 +1053,82 @@
 
     </div><!-- /exercises -->
   </div><!-- /week3 -->
+
+
+  <!-- ══ PICKLEBALL RULES ══ -->
+  <div class="section" id="tab-pickleball">
+    <div class="section-header">
+      <h2>🏓 Pickleball Rules <span class="badge">Next 6 Weeks</span></h2>
+      <p>You can play — but smart play protects your recovery. Follow these guidelines for the next 6 weeks to stay on the court without setting yourself back.</p>
+    </div>
+
+    <div class="rules-grid">
+
+      <div class="rules-card allowed">
+        <div class="rules-icon">✅</div>
+        <h3>Allowed</h3>
+        <ul class="rules-list">
+          <li>Dinking</li>
+          <li>Controlled rallies</li>
+          <li>Footwork drills</li>
+          <li>Backhand blocks</li>
+          <li>Moderate serves</li>
+        </ul>
+      </div>
+
+      <div class="rules-card limit">
+        <div class="rules-icon">⚠️</div>
+        <h3>Limit</h3>
+        <ul class="rules-list">
+          <li>Hard overhead smashes</li>
+          <li>Repeated shoulder-height speedups</li>
+          <li>Aggressive serves</li>
+          <li>Playing multiple days in a row</li>
+        </ul>
+      </div>
+
+      <div class="rules-card ideal">
+        <div class="rules-icon">🎯</div>
+        <h3>Ideal Schedule</h3>
+        <ul class="rules-list" style="list-style:none;">
+          <li style="flex-direction:column; gap:4px;">
+            <span style="font-size:2rem; font-weight:800; color:var(--accent); line-height:1;">1</span>
+            <span style="color:var(--text); font-size:0.95rem; font-weight:600;">session per week max</span>
+            <span style="color:var(--muted); font-size:0.82rem; margin-top:2px;">for now. Your shoulder needs recovery time between sessions more than it needs court time.</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="after-play">
+      <h3>🧊 After Every Session</h3>
+      <div class="after-steps">
+        <div class="after-step">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong>Ice 10–15 minutes</strong>
+            <span>Wrap in a cloth — never ice directly on skin. Apply to the front and back of the shoulder.</span>
+          </div>
+        </div>
+        <div class="after-step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong>Light stretching</strong>
+            <span>Run through your morning routine: pendulum swings, wall slides, and the doorway chest stretch.</span>
+          </div>
+        </div>
+        <div class="after-step">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <strong>No upper-body gym same day</strong>
+            <span>Your rotator cuff is already fatigued from play. Adding gym load the same day risks overuse injury.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pickleball -->
 
 </div><!-- /content -->
 
