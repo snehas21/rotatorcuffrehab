@@ -370,6 +370,128 @@
       color: var(--muted);
       line-height: 1.7;
     }
+
+    /* ── PICKLEBALL RULES ── */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .rules-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .rules-card .rules-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .rules-card h3 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+
+    .rules-card.allowed { border-color: rgba(52,211,153,0.3); }
+    .rules-card.allowed h3 { color: var(--green); }
+
+    .rules-card.limit { border-color: rgba(251,191,36,0.3); }
+    .rules-card.limit h3 { color: var(--amber); }
+
+    .rules-card.ideal { border-color: rgba(79,142,247,0.3); }
+    .rules-card.ideal h3 { color: var(--accent); }
+
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rules-list li {
+      font-size: 0.88rem;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .rules-list li::before {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .allowed .rules-list li::before { content: '✓'; color: var(--green); font-weight: 700; }
+    .limit   .rules-list li::before { content: '↓'; color: var(--amber); font-weight: 700; }
+
+    .after-play {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .after-play h3 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent2);
+      margin-bottom: 14px;
+    }
+
+    .after-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .after-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(124,92,191,0.2);
+      border: 1px solid rgba(124,92,191,0.4);
+      color: var(--accent2);
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-text {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+      padding-top: 4px;
+    }
+
+    .step-text strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .step-text span {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
   </style>
 </head>
 <body>
@@ -384,6 +506,10 @@
   <div class="tabs" id="tabs">
     <button class="tab active" data-tab="morning">🌅 Daily Morning</button>
     <button class="tab" data-tab="week1">Week 1</button>
+    <button class="tab" data-tab="week2">Week 2</button>
+    <button class="tab" data-tab="week3">Week 3</button>
+    <button class="tab" data-tab="pickleball">🏓 Pickleball Rules</button>
+    <button class="tab" data-tab="gym">🏋️ Gym Mods</button>
   </div>
 </div>
 
@@ -702,6 +828,357 @@
 
     </div><!-- /exercises -->
   </div><!-- /week1 -->
+
+
+  <!-- ══ WEEK 2 ══ -->
+  <div class="section" id="tab-week2">
+    <div class="section-header">
+      <h2>📅 Week 2 <span class="badge">Load Progression</span></h2>
+      <p>Now that your shoulder is firing properly, we introduce more dynamic load. Sidelying ER adds gravity resistance, farmer carries build shoulder girdle stability, and incline pushups introduce controlled pressing.</p>
+    </div>
+
+    <div class="tips">
+      <h4>💡 Week 2 Guidelines</h4>
+      <ul>
+        <li>Increase resistance only if Week 1 exercises felt pain-free.</li>
+        <li>Sidelying ER: use a very light dumbbell (1–3 lb) — this is harder than it looks.</li>
+        <li>Farmer carries: keep shoulders packed down and back throughout.</li>
+        <li>Incline pushups: adjust the angle to control difficulty — steeper = easier.</li>
+      </ul>
+    </div>
+
+    <div class="exercises">
+
+      <!-- F. Sidelying External Rotation -->
+      <div class="card">
+        <div class="card-media" id="media-w2f">
+          <img class="thumb" src="https://img.youtube.com/vi/xXuBlRT-7YY/hqdefault.jpg" alt="Sidelying External Rotation preview" />
+          <div class="play-btn" onclick="loadVideo('media-w2f','xXuBlRT-7YY')">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
+              <polygon points="32,22 62,40 32,58" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">Week 2 · Exercise F</div>
+          <div class="card-title">Sidelying External Rotation</div>
+          <div class="card-desc">
+            Lie on your unaffected side, injured arm on top, elbow bent 90° with a small towel roll under it. Rotate forearm up toward the ceiling, hold 1 sec, lower slowly. Gravity is the resistance — this directly loads the infraspinatus and teres minor.
+          </div>
+          <div class="card-footer">
+            <div class="tags">
+              <span class="tag green">Strengthening</span>
+              <span class="tag">3 × 12 reps</span>
+            </div>
+            <a class="yt-btn" href="https://www.youtube.com/shorts/xXuBlRT-7YY" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+              Watch Short
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- G. Farmer Carry -->
+      <div class="card">
+        <div class="card-media" id="media-w2g">
+          <img class="thumb" src="https://img.youtube.com/vi/6j4mc-3Ze50/hqdefault.jpg" alt="Farmer Carry preview" />
+          <div class="play-btn" onclick="loadVideo('media-w2g','6j4mc-3Ze50')">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
+              <polygon points="32,22 62,40 32,58" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">Week 2 · Exercise G</div>
+          <div class="card-title">Farmer Carry</div>
+          <div class="card-desc">
+            Hold a light-to-moderate weight in each hand (or just the affected side). Walk slowly with shoulders packed down and back, core braced, eyes forward. Builds rotator cuff endurance and scapular stability under axial load — great functional carry-over.
+          </div>
+          <div class="card-footer">
+            <div class="tags">
+              <span class="tag green">Stability</span>
+              <span class="tag">3 × 20–30 m</span>
+            </div>
+            <a class="yt-btn" href="https://www.youtube.com/shorts/6j4mc-3Ze50" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+              Watch Short
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- H. Incline Pushups -->
+      <div class="card">
+        <div class="card-media" id="media-w2h">
+          <img class="thumb" src="https://img.youtube.com/vi/Mc-Kdwnx_M8/hqdefault.jpg" alt="Incline Pushups preview" />
+          <div class="play-btn" onclick="loadVideo('media-w2h','Mc-Kdwnx_M8')">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
+              <polygon points="32,22 62,40 32,58" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">Week 2 · Exercise H</div>
+          <div class="card-title">Incline Pushups</div>
+          <div class="card-desc">
+            Hands on a bench, counter, or elevated surface. Lower chest toward surface with elbows at ~45° from the body, then push up fully. The incline reduces load vs floor pushups. Finish each rep by protracting the shoulder blades (serratus push-plus).
+          </div>
+          <div class="card-footer">
+            <div class="tags">
+              <span class="tag green">Strengthening</span>
+              <span class="tag">3 × 10–15 reps</span>
+            </div>
+            <a class="yt-btn" href="https://www.youtube.com/shorts/Mc-Kdwnx_M8" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+              Watch Short
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /exercises -->
+  </div><!-- /week2 -->
+
+
+  <!-- ══ WEEK 3 ══ -->
+  <div class="section" id="tab-week3">
+    <div class="section-header">
+      <h2>📅 Week 3 <span class="badge">Sport Re-entry</span></h2>
+      <p>This week bridges rehab to real movement. Exercises mimic sport-specific patterns — overhead pressing, rotational punches, and pickleball swings — all at reduced load to train the shoulder for what matters to you.</p>
+    </div>
+
+    <div class="tips">
+      <h4>💡 Week 3 Guidelines</h4>
+      <ul>
+        <li>Only start Week 3 if Week 2 exercises are pain-free with full range of motion.</li>
+        <li>Overhead press: start with very light dumbbells (3–5 lb). Stop if you feel impingement.</li>
+        <li>Pickleball simulation: focus on smooth, controlled swings — speed comes later.</li>
+        <li>If any exercise causes pain above 3/10, drop back to Week 2 for another session.</li>
+      </ul>
+    </div>
+
+    <div class="exercises">
+
+      <!-- I. Resistance Band Punches -->
+      <div class="card">
+        <div class="card-media" id="media-w3i">
+          <img class="thumb" src="https://img.youtube.com/vi/4Yr5nrnEGjM/hqdefault.jpg" alt="Resistance Band Punches preview" />
+          <div class="play-btn" onclick="loadVideo('media-w3i','4Yr5nrnEGjM')">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
+              <polygon points="32,22 62,40 32,58" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">Week 3 · Exercise I</div>
+          <div class="card-title">Resistance Band Punches</div>
+          <div class="card-desc">
+            Anchor a light band behind you. With your elbow at shoulder height, push forward in a controlled punching motion, then return slowly. Trains the serratus anterior and rotator cuff in the same forward-reaching plane used in racquet and court sports.
+          </div>
+          <div class="card-footer">
+            <div class="tags">
+              <span class="tag green">Functional</span>
+              <span class="tag">3 × 15 reps/side</span>
+            </div>
+            <a class="yt-btn" href="https://www.youtube.com/shorts/4Yr5nrnEGjM" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+              Watch Short
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- J. Light Overhead Press -->
+      <div class="card">
+        <div class="card-media" id="media-w3j">
+          <img class="thumb" src="https://img.youtube.com/vi/88aQMOd3m4A/hqdefault.jpg" alt="Light Overhead Press preview" />
+          <div class="play-btn" onclick="loadVideo('media-w3j','88aQMOd3m4A')">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
+              <polygon points="32,22 62,40 32,58" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">Week 3 · Exercise J</div>
+          <div class="card-title">Light Overhead Press</div>
+          <div class="card-desc">
+            Press very light dumbbells (3–5 lb) from shoulder height to overhead with a neutral or slight inward grip. Lower slowly. This video covers shoulder-friendly technique and safe alternatives if you feel pinching. Build the overhead pattern before adding load.
+          </div>
+          <div class="card-footer">
+            <div class="tags">
+              <span class="tag green">Strengthening</span>
+              <span class="tag">3 × 10 reps</span>
+            </div>
+            <a class="yt-btn" href="https://www.youtube.com/shorts/88aQMOd3m4A" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+              Watch Short
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- K. Pickleball Swing Simulation -->
+      <div class="card">
+        <div class="card-media" id="media-w3k">
+          <img class="thumb" src="https://img.youtube.com/vi/ZvJmFl_ABVE/hqdefault.jpg" alt="Pickleball Swing Simulation preview" />
+          <div class="play-btn" onclick="loadVideo('media-w3k','ZvJmFl_ABVE')">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
+              <polygon points="32,22 62,40 32,58" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-label">Week 3 · Exercise K</div>
+          <div class="card-title">Pickleball Swing Simulation</div>
+          <div class="card-desc">
+            Shadow-swing forehand and backhand motions at slow, controlled speed — no ball, no paddle impact. Focus on smooth shoulder rotation and wrist follow-through. Groove the movement pattern before returning to the court. Use a light resistance band for added shoulder activation.
+          </div>
+          <div class="card-footer">
+            <div class="tags">
+              <span class="tag amber">Sport Prep</span>
+              <span class="tag">2 × 20 swings</span>
+            </div>
+            <a class="yt-btn" href="https://www.youtube.com/shorts/ZvJmFl_ABVE" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+              Watch Short
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /exercises -->
+  </div><!-- /week3 -->
+
+
+  <!-- ══ PICKLEBALL RULES ══ -->
+  <div class="section" id="tab-pickleball">
+    <div class="section-header">
+      <h2>🏓 Pickleball Rules <span class="badge">Next 6 Weeks</span></h2>
+      <p>You can play — but smart play protects your recovery. Follow these guidelines for the next 6 weeks to stay on the court without setting yourself back.</p>
+    </div>
+
+    <div class="rules-grid">
+
+      <div class="rules-card allowed">
+        <div class="rules-icon">✅</div>
+        <h3>Allowed</h3>
+        <ul class="rules-list">
+          <li>Dinking</li>
+          <li>Controlled rallies</li>
+          <li>Footwork drills</li>
+          <li>Backhand blocks</li>
+          <li>Moderate serves</li>
+        </ul>
+      </div>
+
+      <div class="rules-card limit">
+        <div class="rules-icon">⚠️</div>
+        <h3>Limit</h3>
+        <ul class="rules-list">
+          <li>Hard overhead smashes</li>
+          <li>Repeated shoulder-height speedups</li>
+          <li>Aggressive serves</li>
+          <li>Playing multiple days in a row</li>
+        </ul>
+      </div>
+
+      <div class="rules-card ideal">
+        <div class="rules-icon">🎯</div>
+        <h3>Ideal Schedule</h3>
+        <ul class="rules-list" style="list-style:none;">
+          <li style="flex-direction:column; gap:4px;">
+            <span style="font-size:2rem; font-weight:800; color:var(--accent); line-height:1;">1</span>
+            <span style="color:var(--text); font-size:0.95rem; font-weight:600;">session per week max</span>
+            <span style="color:var(--muted); font-size:0.82rem; margin-top:2px;">for now. Your shoulder needs recovery time between sessions more than it needs court time.</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="after-play">
+      <h3>🧊 After Every Session</h3>
+      <div class="after-steps">
+        <div class="after-step">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong>Ice 10–15 minutes</strong>
+            <span>Wrap in a cloth — never ice directly on skin. Apply to the front and back of the shoulder.</span>
+          </div>
+        </div>
+        <div class="after-step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong>Light stretching</strong>
+            <span>Run through your morning routine: pendulum swings, wall slides, and the doorway chest stretch.</span>
+          </div>
+        </div>
+        <div class="after-step">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <strong>No upper-body gym same day</strong>
+            <span>Your rotator cuff is already fatigued from play. Adding gym load the same day risks overuse injury.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pickleball -->
+
+
+  <!-- ══ GYM MODIFICATIONS ══ -->
+  <div class="section" id="tab-gym">
+    <div class="section-header">
+      <h2>🏋️ Gym Modifications <span class="badge">Temporary</span></h2>
+      <p>You don't have to stop going to the gym — just train around the shoulder. Here's what to skip and what to swap in while you recover.</p>
+    </div>
+
+    <div class="rules-grid">
+
+      <div class="rules-card limit">
+        <div class="rules-icon">🚫</div>
+        <h3>Avoid Temporarily</h3>
+        <ul class="rules-list">
+          <li>Heavy shoulder press</li>
+          <li>Upright rows</li>
+          <li>Heavy bench press</li>
+          <li>Lateral raises above shoulder height</li>
+          <li>Pullups</li>
+        </ul>
+      </div>
+
+      <div class="rules-card allowed">
+        <div class="rules-icon">💪</div>
+        <h3>Safer Options</h3>
+        <ul class="rules-list">
+          <li>Chest-supported rows</li>
+          <li>Cable rows</li>
+          <li>Leg work</li>
+          <li>Walking incline treadmill</li>
+          <li>Core work</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="tips">
+      <h4>💡 Why These Swaps Work</h4>
+      <ul>
+        <li><strong style="color:var(--text)">Chest-supported &amp; cable rows</strong> — keep the shoulder in a safe, supported position while still training the back.</li>
+        <li><strong style="color:var(--text)">Leg &amp; core work</strong> — lets you train hard without any shoulder load. Don't let the injury be an excuse to lose lower-body fitness.</li>
+        <li><strong style="color:var(--text)">Incline treadmill</strong> — great cardio with near-zero shoulder stress. Arms stay relaxed at your sides.</li>
+        <li><strong style="color:var(--text)">Avoid upright rows</strong> — this movement internally rotates and impinges the shoulder at the exact angle that aggravates rotator cuff injuries.</li>
+        <li><strong style="color:var(--text)">Pullups</strong> — high tensile load through the shoulder at full overhead stretch. Re-introduce only when pain-free overhead range is fully restored.</li>
+      </ul>
+    </div>
+
+  </div><!-- /gym -->
 
 </div><!-- /content -->
 
