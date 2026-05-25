@@ -4,175 +4,299 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rotator Cuff Rehab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface2: #22263a;
-      --accent: #4f8ef7;
-      --accent2: #7c5cbf;
-      --green: #34d399;
-      --amber: #fbbf24;
-      --text: #e2e8f0;
-      --muted: #8892a4;
-      --border: rgba(255,255,255,0.08);
-      --radius: 16px;
+      --bg:       #0b0d14;
+      --surface:  #13161f;
+      --surface2: #1c2030;
+      --border:   rgba(255,255,255,0.07);
+      --text:     #e8eaf0;
+      --muted:    #7a8499;
+      --radius:   18px;
+      --radius-sm: 10px;
+
+      /* section accent colours */
+      --morning-a: #f97316;
+      --morning-b: #fbbf24;
+      --w1-a: #4f8ef7;
+      --w1-b: #818cf8;
+      --w2-a: #10b981;
+      --w2-b: #34d399;
+      --w3-a: #8b5cf6;
+      --w3-b: #c084fc;
+      --pb-a: #06b6d4;
+      --pb-b: #38bdf8;
+      --gym-a: #f43f5e;
+      --gym-b: #fb923c;
     }
 
+    /* ─── BASE ─── */
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── HEADER ── */
+    /* ─── HEADER ─── */
     header {
-      background: linear-gradient(135deg, #1a1d27 0%, #1e2238 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 24px 20px 20px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, #0f1422 0%, #161b2e 50%, #1a1230 100%);
+      padding: clamp(28px, 6vw, 52px) 20px clamp(24px, 5vw, 44px);
       text-align: center;
+      border-bottom: 1px solid var(--border);
     }
 
-    header .logo { font-size: 40px; margin-bottom: 8px; }
+    /* decorative blobs */
+    header::before, header::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.25;
+      pointer-events: none;
+    }
+    header::before {
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, #f97316, transparent);
+      top: -120px; left: -80px;
+    }
+    header::after {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #4f8ef7, transparent);
+      bottom: -100px; right: -60px;
+    }
+
+    .header-inner { position: relative; z-index: 1; }
+
+    .logo {
+      font-size: clamp(36px, 8vw, 52px);
+      margin-bottom: 10px;
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-6px); }
+    }
 
     header h1 {
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #f97316 0%, #fbbf24 40%, #4f8ef7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      line-height: 1.1;
     }
 
     header p {
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: clamp(0.85rem, 2.5vw, 1rem);
+      font-weight: 500;
     }
 
-    /* ── TABS ── */
+    /* ─── TAB NAV ─── */
     .tabs-wrap {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: var(--bg);
+      z-index: 200;
+      background: rgba(11,13,20,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding: 0 20px;
     }
 
     .tabs {
       display: flex;
-      gap: 4px;
+      gap: 2px;
       overflow-x: auto;
       scrollbar-width: none;
-      max-width: 900px;
+      max-width: 980px;
       margin: 0 auto;
+      padding: 0 12px;
     }
     .tabs::-webkit-scrollbar { display: none; }
 
     .tab {
       flex-shrink: 0;
-      padding: 14px 20px;
+      padding: 14px 16px;
       background: none;
       border: none;
       border-bottom: 3px solid transparent;
       color: var(--muted);
-      font-size: 0.9rem;
+      font-family: inherit;
+      font-size: clamp(0.78rem, 2.2vw, 0.88rem);
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: color 0.2s, border-color 0.2s;
       white-space: nowrap;
+      letter-spacing: 0.01em;
     }
-
     .tab:hover { color: var(--text); }
 
-    .tab.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
+    /* per-tab active colours */
+    .tab[data-tab="morning"].active  { color: var(--morning-a); border-color: var(--morning-a); }
+    .tab[data-tab="week1"].active    { color: var(--w1-a);      border-color: var(--w1-a); }
+    .tab[data-tab="week2"].active    { color: var(--w2-a);      border-color: var(--w2-a); }
+    .tab[data-tab="week3"].active    { color: var(--w3-a);      border-color: var(--w3-a); }
+    .tab[data-tab="pickleball"].active { color: var(--pb-a);    border-color: var(--pb-a); }
+    .tab[data-tab="gym"].active      { color: var(--gym-a);     border-color: var(--gym-a); }
 
-    /* ── CONTENT ── */
+    /* ─── CONTENT ─── */
     .content {
-      max-width: 900px;
+      max-width: 980px;
       margin: 0 auto;
-      padding: 28px 16px 60px;
+      padding: clamp(20px,4vw,36px) clamp(12px,4vw,20px) 80px;
     }
 
     .section { display: none; }
     .section.active { display: block; }
 
-    /* ── SECTION HEADER ── */
-    .section-header {
-      margin-bottom: 24px;
+    /* ─── SECTION HEADER BANNER ─── */
+    .section-banner {
+      border-radius: var(--radius);
+      padding: clamp(20px,4vw,28px) clamp(20px,4vw,28px);
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .section-header h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .section-banner::after {
+      content: attr(data-emoji);
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(60px, 14vw, 100px);
+      opacity: 0.12;
+      line-height: 1;
+      pointer-events: none;
     }
 
-    .section-header p {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
+    .morning-banner  { background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(251,191,36,0.10)); border: 1px solid rgba(249,115,22,0.3); }
+    .week1-banner    { background: linear-gradient(135deg, rgba(79,142,247,0.18), rgba(129,140,248,0.10)); border: 1px solid rgba(79,142,247,0.3); }
+    .week2-banner    { background: linear-gradient(135deg, rgba(16,185,129,0.18), rgba(52,211,153,0.10)); border: 1px solid rgba(16,185,129,0.3); }
+    .week3-banner    { background: linear-gradient(135deg, rgba(139,92,246,0.18), rgba(192,132,252,0.10)); border: 1px solid rgba(139,92,246,0.3); }
+    .pickleball-banner { background: linear-gradient(135deg, rgba(6,182,212,0.18), rgba(56,189,248,0.10)); border: 1px solid rgba(6,182,212,0.3); }
+    .gym-banner      { background: linear-gradient(135deg, rgba(244,63,94,0.18), rgba(251,146,60,0.10)); border: 1px solid rgba(244,63,94,0.3); }
 
-    .badge {
+    .banner-badge {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      background: rgba(79,142,247,0.15);
-      border: 1px solid rgba(79,142,247,0.3);
-      color: var(--accent);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .morning-banner  .banner-badge { background: rgba(249,115,22,0.2);  color: var(--morning-a); }
+    .week1-banner    .banner-badge { background: rgba(79,142,247,0.2);  color: var(--w1-a); }
+    .week2-banner    .banner-badge { background: rgba(16,185,129,0.2);  color: var(--w2-a); }
+    .week3-banner    .banner-badge { background: rgba(139,92,246,0.2);  color: var(--w3-a); }
+    .pickleball-banner .banner-badge { background: rgba(6,182,212,0.2); color: var(--pb-a); }
+    .gym-banner      .banner-badge { background: rgba(244,63,94,0.2);   color: var(--gym-a); }
+
+    .section-banner h2 {
+      font-size: clamp(1.25rem, 4vw, 1.65rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+    .morning-banner  h2 { color: var(--morning-a); }
+    .week1-banner    h2 { color: var(--w1-a); }
+    .week2-banner    h2 { color: var(--w2-a); }
+    .week3-banner    h2 { color: var(--w3-a); }
+    .pickleball-banner h2 { color: var(--pb-a); }
+    .gym-banner      h2 { color: var(--gym-a); }
+
+    .section-banner p {
+      color: rgba(232,234,240,0.7);
+      font-size: clamp(0.82rem, 2.2vw, 0.9rem);
+      line-height: 1.65;
+      max-width: 620px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* ── EXERCISE GRID ── */
+    /* ─── TIPS BOX ─── */
+    .tips {
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      margin-bottom: 20px;
+    }
+    .tips.morning-tips  { background: rgba(249,115,22,0.07); border: 1px solid rgba(249,115,22,0.2); }
+    .tips.week1-tips    { background: rgba(79,142,247,0.07); border: 1px solid rgba(79,142,247,0.2); }
+    .tips.week2-tips    { background: rgba(16,185,129,0.07); border: 1px solid rgba(16,185,129,0.2); }
+    .tips.week3-tips    { background: rgba(139,92,246,0.07); border: 1px solid rgba(139,92,246,0.2); }
+    .tips.gym-tips      { background: rgba(244,63,94,0.07);  border: 1px solid rgba(244,63,94,0.2);  }
+
+    .tips h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+    .morning-tips h4  { color: var(--morning-a); }
+    .week1-tips h4    { color: var(--w1-a); }
+    .week2-tips h4    { color: var(--w2-a); }
+    .week3-tips h4    { color: var(--w3-a); }
+    .gym-tips h4      { color: var(--gym-a); }
+
+    .tips ul { padding-left: 18px; list-style: disc; }
+    .tips li { font-size: 0.84rem; color: rgba(232,234,240,0.65); line-height: 1.7; }
+    .tips li strong { color: var(--text); }
+
+    /* ─── EXERCISE GRID ─── */
     .exercises {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+      gap: 18px;
     }
 
-    @media (max-width: 500px) {
-      .exercises { grid-template-columns: 1fr; }
-    }
-
-    /* ── EXERCISE CARD ── */
+    /* ─── EXERCISE CARD ─── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.22s cubic-bezier(.34,1.56,.64,1), box-shadow 0.22s;
+      display: flex;
+      flex-direction: column;
     }
-
     .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
     }
 
-    /* GIF / video area */
+    /* coloured top stripe per week */
+    .card.morning-card { border-top: 3px solid var(--morning-a); }
+    .card.week1-card   { border-top: 3px solid var(--w1-a); }
+    .card.week2-card   { border-top: 3px solid var(--w2-a); }
+    .card.week3-card   { border-top: 3px solid var(--w3-a); }
+
+    /* video area */
     .card-media {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%; /* 16:9 */
+      padding-bottom: 56.25%;
       background: #000;
       overflow: hidden;
     }
-
     .card-media iframe {
       position: absolute;
       inset: 0;
@@ -180,8 +304,6 @@
       height: 100%;
       border: none;
     }
-
-    /* fallback thumbnail shown before iframe loads */
     .card-media .thumb {
       position: absolute;
       inset: 0;
@@ -189,9 +311,7 @@
       height: 100%;
       object-fit: cover;
       cursor: pointer;
-      transition: opacity 0.3s;
     }
-
     .card-media .play-btn {
       position: absolute;
       inset: 0;
@@ -199,47 +319,61 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.35);
       transition: background 0.2s;
     }
-
-    .card-media .play-btn:hover { background: rgba(0,0,0,0.5); }
-
-    .card-media .play-btn svg {
-      width: 54px;
-      height: 54px;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    .card-media .play-btn:hover { background: rgba(0,0,0,0.55); }
+    .card-media .play-btn .play-circle {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
+    .card-media .play-btn:hover .play-circle { transform: scale(1.1); }
+    .morning-card .play-circle { background: linear-gradient(135deg, var(--morning-a), var(--morning-b)); }
+    .week1-card   .play-circle { background: linear-gradient(135deg, var(--w1-a), var(--w1-b)); }
+    .week2-card   .play-circle { background: linear-gradient(135deg, var(--w2-a), var(--w2-b)); }
+    .week3-card   .play-circle { background: linear-gradient(135deg, var(--w3-a), var(--w3-b)); }
+    .play-circle svg { width: 22px; height: 22px; margin-left: 3px; }
 
     .card-media.playing .thumb,
     .card-media.playing .play-btn { display: none; }
 
     /* card body */
     .card-body {
-      padding: 16px;
+      padding: 16px 18px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .card-label {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 6px;
+      letter-spacing: 0.1em;
+      margin-bottom: 5px;
     }
+    .morning-card .card-label { color: var(--morning-a); }
+    .week1-card   .card-label { color: var(--w1-a); }
+    .week2-card   .card-label { color: var(--w2-a); }
+    .week3-card   .card-label { color: var(--w3-a); }
 
     .card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
+      font-size: clamp(0.98rem, 2.5vw, 1.08rem);
+      font-weight: 800;
       margin-bottom: 8px;
       color: var(--text);
-      line-height: 1.35;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
     }
 
     .card-desc {
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
+      flex: 1;
       margin-bottom: 14px;
     }
 
@@ -247,176 +381,106 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-    }
-
-    .tags {
-      display: flex;
-      gap: 6px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
-    .tag {
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 50px;
-      background: var(--surface2);
-      color: var(--muted);
-    }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
 
-    .tag.green { background: rgba(52,211,153,0.12); color: var(--green); }
-    .tag.amber { background: rgba(251,191,36,0.12); color: var(--amber); }
+    .tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 50px;
+      letter-spacing: 0.02em;
+    }
+    .tag-green  { background: rgba(16,185,129,0.15); color: #34d399; }
+    .tag-amber  { background: rgba(251,191,36,0.15);  color: #fbbf24; }
+    .tag-blue   { background: rgba(79,142,247,0.15);  color: #7aa8fb; }
+    .tag-purple { background: rgba(139,92,246,0.15);  color: #c084fc; }
+    .tag-teal   { background: rgba(6,182,212,0.15);   color: #38bdf8; }
+    .tag-neutral{ background: var(--surface2);         color: var(--muted); }
 
     .yt-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 14px;
-      background: #ff0000;
+      padding: 8px 14px;
+      background: #e50914;
       color: #fff;
       border-radius: 8px;
-      font-size: 0.78rem;
+      font-family: inherit;
+      font-size: 0.75rem;
       font-weight: 700;
       text-decoration: none;
       white-space: nowrap;
-      transition: background 0.2s, transform 0.1s;
+      transition: background 0.18s, transform 0.12s;
       flex-shrink: 0;
+      letter-spacing: 0.02em;
     }
+    .yt-btn:hover  { background: #b0060f; transform: scale(1.04); }
+    .yt-btn:active { transform: scale(0.97); }
+    .yt-btn svg { width: 13px; height: 13px; }
 
-    .yt-btn:hover { background: #cc0000; transform: scale(1.03); }
-    .yt-btn svg { width: 14px; height: 14px; }
-
-    /* ── PROGRESS TRACKER ── */
-    .tracker {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-
-    .tracker h3 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .week-dots {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .week-dot {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      background: var(--surface2);
-      color: var(--muted);
-      font-size: 0.75rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      user-select: none;
-    }
-
-    .week-dot.active-week {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .week-dot.done {
-      background: var(--green);
-      border-color: var(--green);
-      color: #fff;
-    }
-
-    /* ── TIPS BOX ── */
-    .tips {
-      background: rgba(79,142,247,0.08);
-      border: 1px solid rgba(79,142,247,0.2);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 24px;
-    }
-
-    .tips h4 {
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--accent);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .tips ul {
-      padding-left: 18px;
-      list-style: disc;
-    }
-
-    .tips li {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* ── PICKLEBALL RULES ── */
+    /* ─── RULES / PICKLEBALL & GYM ─── */
     .rules-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .rules-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px;
+      padding: clamp(16px,3vw,22px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .rules-card .rules-icon {
-      font-size: 28px;
-      margin-bottom: 10px;
+    .rules-card.allowed  { background: rgba(16,185,129,0.08);  border: 1px solid rgba(16,185,129,0.3); }
+    .rules-card.limit    { background: rgba(251,191,36,0.08);  border: 1px solid rgba(251,191,36,0.3); }
+    .rules-card.no-go    { background: rgba(244,63,94,0.08);   border: 1px solid rgba(244,63,94,0.3); }
+    .rules-card.ideal    { background: rgba(6,182,212,0.08);   border: 1px solid rgba(6,182,212,0.3); }
+
+    .rules-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
+
+    .rules-icon-wrap {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .allowed  .rules-icon-wrap { background: rgba(16,185,129,0.2); }
+    .limit    .rules-icon-wrap { background: rgba(251,191,36,0.2); }
+    .no-go    .rules-icon-wrap { background: rgba(244,63,94,0.2); }
+    .ideal    .rules-icon-wrap { background: rgba(6,182,212,0.2); }
 
     .rules-card h3 {
-      font-size: 0.82rem;
-      font-weight: 700;
+      font-size: 0.78rem;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 14px;
     }
-
-    .rules-card.allowed { border-color: rgba(52,211,153,0.3); }
-    .rules-card.allowed h3 { color: var(--green); }
-
-    .rules-card.limit { border-color: rgba(251,191,36,0.3); }
-    .rules-card.limit h3 { color: var(--amber); }
-
-    .rules-card.ideal { border-color: rgba(79,142,247,0.3); }
-    .rules-card.ideal h3 { color: var(--accent); }
+    .allowed h3 { color: #34d399; }
+    .limit   h3 { color: #fbbf24; }
+    .no-go   h3 { color: #fb7185; }
+    .ideal   h3 { color: #38bdf8; }
 
     .rules-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 9px;
     }
 
     .rules-list li {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: var(--text);
       display: flex;
       align-items: flex-start;
@@ -424,761 +488,702 @@
       line-height: 1.4;
     }
 
-    .rules-list li::before {
+    .rules-list li .bullet {
       flex-shrink: 0;
-      margin-top: 1px;
+      margin-top: 2px;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+    .allowed  .bullet { color: #34d399; }
+    .limit    .bullet { color: #fbbf24; }
+    .no-go    .bullet { color: #fb7185; }
+
+    /* Ideal schedule large number */
+    .ideal-big {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--pb-a);
+      letter-spacing: -0.04em;
+    }
+    .ideal-label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .ideal-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
     }
 
-    .allowed .rules-list li::before { content: '✓'; color: var(--green); font-weight: 700; }
-    .limit   .rules-list li::before { content: '↓'; color: var(--amber); font-weight: 700; }
-
+    /* ─── AFTER PLAY ─── */
     .after-play {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px;
+      padding: clamp(18px,4vw,24px);
     }
 
-    .after-play h3 {
+    .after-play-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .after-play-header .icon-wrap {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(6,182,212,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .after-play-header h3 {
       font-size: 0.82rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--accent2);
-      margin-bottom: 14px;
+      color: var(--pb-a);
     }
 
-    .after-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .after-steps { display: flex; flex-direction: column; gap: 14px; }
 
-    .after-step {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
+    .after-step { display: flex; align-items: flex-start; gap: 14px; }
 
     .step-num {
       flex-shrink: 0;
-      width: 28px;
-      height: 28px;
+      width: 32px; height: 32px;
       border-radius: 50%;
-      background: rgba(124,92,191,0.2);
-      border: 1px solid rgba(124,92,191,0.4);
-      color: var(--accent2);
-      font-size: 0.75rem;
+      background: linear-gradient(135deg, var(--pb-a), var(--pb-b));
+      color: #fff;
+      font-size: 0.8rem;
       font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 3px 10px rgba(6,182,212,0.35);
     }
 
-    .step-text {
-      font-size: 0.88rem;
-      color: var(--text);
-      line-height: 1.5;
-      padding-top: 4px;
+    .step-text { padding-top: 6px; }
+    .step-text strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .step-text span   { font-size: 0.81rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── MOBILE RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .rules-grid { grid-template-columns: 1fr; }
+
+      .card-footer { flex-direction: column; align-items: flex-start; }
+      .yt-btn { width: 100%; justify-content: center; }
+
+      .after-step { flex-direction: column; gap: 8px; }
+      .step-num { width: 28px; height: 28px; font-size: 0.75rem; }
     }
 
-    .step-text strong {
-      color: var(--text);
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    .step-text span {
-      color: var(--muted);
-      font-size: 0.82rem;
+    @media (max-width: 420px) {
+      .tab { padding: 13px 12px; font-size: 0.76rem; }
     }
   </style>
 </head>
 <body>
 
+<!-- ════ HEADER ════ -->
 <header>
-  <div class="logo">🦴</div>
-  <h1>Rotator Cuff Rehab</h1>
-  <p>Your personalized recovery program — week by week</p>
+  <div class="header-inner">
+    <span class="logo">🩺</span>
+    <h1>Rotator Cuff Rehab</h1>
+    <p>Your personalised recovery program — week by week</p>
+  </div>
 </header>
 
+<!-- ════ TABS ════ -->
 <div class="tabs-wrap">
   <div class="tabs" id="tabs">
     <button class="tab active" data-tab="morning">🌅 Daily Morning</button>
-    <button class="tab" data-tab="week1">Week 1</button>
-    <button class="tab" data-tab="week2">Week 2</button>
-    <button class="tab" data-tab="week3">Week 3</button>
-    <button class="tab" data-tab="pickleball">🏓 Pickleball Rules</button>
+    <button class="tab" data-tab="week1">💙 Week 1</button>
+    <button class="tab" data-tab="week2">💚 Week 2</button>
+    <button class="tab" data-tab="week3">💜 Week 3</button>
+    <button class="tab" data-tab="pickleball">🏓 Pickleball</button>
     <button class="tab" data-tab="gym">🏋️ Gym Mods</button>
   </div>
 </div>
 
 <div class="content">
 
-  <!-- ══ MORNING ROUTINE ══ -->
-  <div class="section active" id="tab-morning">
-    <div class="section-header">
-      <h2>🌅 Daily Morning Routine <span class="badge">Every Day</span></h2>
-      <p>Do these 4 movements every morning before your weekly exercises. They warm up the joint, improve mobility, and prepare your shoulder for the day.</p>
+<!-- ══════════════════════════════════════════
+     DAILY MORNING ROUTINE
+══════════════════════════════════════════ -->
+<div class="section active" id="tab-morning">
+
+  <div class="section-banner morning-banner" data-emoji="🌅">
+    <div class="banner-badge">Every Day</div>
+    <h2>Daily Morning Routine</h2>
+    <p>Do these 4 movements every morning before your weekly exercises. They warm up the joint, improve mobility, and prepare your shoulder for the day.</p>
+  </div>
+
+  <div class="tips morning-tips">
+    <h4>💡 Tips</h4>
+    <ul>
+      <li>Move slowly and with control — pain should stay below a 3/10.</li>
+      <li>Breathe steadily; never hold your breath during stretches.</li>
+      <li>Warm muscles first — a hot shower beforehand works great.</li>
+    </ul>
+  </div>
+
+  <div class="exercises">
+
+    <div class="card morning-card">
+      <div class="card-media" id="media-m1">
+        <img class="thumb" src="https://img.youtube.com/vi/g9fK2c-trQo/hqdefault.jpg" alt="Pendulum Swings" />
+        <div class="play-btn" onclick="loadVideo('media-m1','g9fK2c-trQo')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Morning · Exercise 1</div>
+        <div class="card-title">Pendulum Swings</div>
+        <div class="card-desc">Lean forward with one hand on a table. Let your injured arm hang and gently swing it in small circles using body momentum — not muscle. Relieves capsule tightness and promotes synovial fluid circulation.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-amber">Mobility</span>
+            <span class="tag tag-neutral">2–3 min</span>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/g9fK2c-trQo" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
     </div>
 
-    <div class="tips">
-      <h4>💡 Tips</h4>
-      <ul>
-        <li>Move slowly and with control — pain should stay below a 3/10.</li>
-        <li>Breathe steadily; never hold your breath during stretches.</li>
-        <li>Warm muscles first — a hot shower works great.</li>
-      </ul>
+    <div class="card morning-card">
+      <div class="card-media" id="media-m2">
+        <img class="thumb" src="https://img.youtube.com/vi/11hWXiZ7Wpg/hqdefault.jpg" alt="Wall Slides" />
+        <div class="play-btn" onclick="loadVideo('media-m2','11hWXiZ7Wpg')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Morning · Exercise 2</div>
+        <div class="card-title">Wall Slides</div>
+        <div class="card-desc">Stand with your back against a wall, arms bent at 90°. Slowly slide both arms up overhead while keeping contact with the wall, then return. Trains scapular upward rotation and shoulder flexion.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-amber">Mobility</span>
+            <span class="tag tag-neutral">2 × 10 reps</span>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/11hWXiZ7Wpg" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
     </div>
 
-    <div class="exercises">
-
-      <!-- 1. Pendulum Swings -->
-      <div class="card">
-        <div class="card-media" id="media-m1">
-          <img class="thumb" src="https://img.youtube.com/vi/g9fK2c-trQo/hqdefault.jpg" alt="Pendulum Swings preview" />
-          <div class="play-btn" onclick="loadVideo('media-m1','g9fK2c-trQo')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Morning Routine · Exercise 1</div>
-          <div class="card-title">Pendulum Swings</div>
-          <div class="card-desc">
-            Lean forward with one hand on a table. Let your injured arm hang and gently swing it in small circles using body momentum — not muscle. Relieves capsule tightness and promotes synovial fluid circulation.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Mobility</span>
-              <span class="tag">2–3 min</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/g9fK2c-trQo" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
+    <div class="card morning-card">
+      <div class="card-media" id="media-m3">
+        <img class="thumb" src="https://img.youtube.com/vi/hFd5mWzIQ_s/hqdefault.jpg" alt="Scapular Retractions" />
+        <div class="play-btn" onclick="loadVideo('media-m3','hFd5mWzIQ_s')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         </div>
       </div>
-
-      <!-- 2. Wall Slides -->
-      <div class="card">
-        <div class="card-media" id="media-m2">
-          <img class="thumb" src="https://img.youtube.com/vi/11hWXiZ7Wpg/hqdefault.jpg" alt="Wall Slides preview" />
-          <div class="play-btn" onclick="loadVideo('media-m2','11hWXiZ7Wpg')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
+      <div class="card-body">
+        <div class="card-label">Morning · Exercise 3</div>
+        <div class="card-title">Scapular Retractions</div>
+        <div class="card-desc">Stand or sit tall. Squeeze your shoulder blades together and hold 3–5 seconds, then release. Activates the rhomboids and lower trapezius — critical for shoulder blade stability.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-amber">Activation</span>
+            <span class="tag tag-neutral">3 × 12 reps</span>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Morning Routine · Exercise 2</div>
-          <div class="card-title">Wall Slides</div>
-          <div class="card-desc">
-            Stand with your back against a wall, arms bent at 90°. Slowly slide both arms up overhead while keeping contact with the wall, then return. Trains scapular upward rotation and shoulder flexion.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Mobility</span>
-              <span class="tag">2 × 10 reps</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/11hWXiZ7Wpg" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/hFd5mWzIQ_s" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
         </div>
       </div>
-
-      <!-- 3. Scapular Retractions -->
-      <div class="card">
-        <div class="card-media" id="media-m3">
-          <img class="thumb" src="https://img.youtube.com/vi/hFd5mWzIQ_s/hqdefault.jpg" alt="Scapular Retractions preview" />
-          <div class="play-btn" onclick="loadVideo('media-m3','hFd5mWzIQ_s')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Morning Routine · Exercise 3</div>
-          <div class="card-title">Scapular Retractions</div>
-          <div class="card-desc">
-            Stand or sit tall. Squeeze your shoulder blades together and hold 3–5 seconds, then release. Activates the rhomboids and lower trapezius — critical for shoulder blade stability.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Activation</span>
-              <span class="tag">3 × 12 reps</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/hFd5mWzIQ_s" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. Doorway Chest Stretch -->
-      <div class="card">
-        <div class="card-media" id="media-m4">
-          <img class="thumb" src="https://img.youtube.com/vi/dlQX1pswPwA/hqdefault.jpg" alt="Doorway Chest Stretch preview" />
-          <div class="play-btn" onclick="loadVideo('media-m4','dlQX1pswPwA')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Morning Routine · Exercise 4</div>
-          <div class="card-title">Doorway Chest Stretch</div>
-          <div class="card-desc">
-            Place forearms on a door frame at 90°. Step forward gently until you feel a stretch across your chest and front of shoulders. Holds 20–30 seconds. Counters the tight pec minor that pulls the shoulder forward.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag amber">Stretch</span>
-              <span class="tag">3 × 30 sec</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/dlQX1pswPwA" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /exercises -->
-  </div><!-- /morning -->
-
-
-  <!-- ══ WEEK 1 ══ -->
-  <div class="section" id="tab-week1">
-    <div class="section-header">
-      <h2>📅 Week 1 <span class="badge">Foundation</span></h2>
-      <p>Focus on low-load activation and neuromuscular control. These exercises re-establish the firing patterns of your rotator cuff muscles without stressing healing tissue. Do 3–4 sessions this week.</p>
     </div>
 
-    <div class="tips">
-      <h4>💡 Week 1 Guidelines</h4>
-      <ul>
-        <li>Use light resistance — fatigue is okay, pain is not.</li>
-        <li>Keep movements slow and controlled (2 sec up / 2 sec down).</li>
-        <li>Rest 60–90 seconds between sets.</li>
-        <li>Ice for 10–15 min after if sore.</li>
-      </ul>
+    <div class="card morning-card">
+      <div class="card-media" id="media-m4">
+        <img class="thumb" src="https://img.youtube.com/vi/dlQX1pswPwA/hqdefault.jpg" alt="Doorway Chest Stretch" />
+        <div class="play-btn" onclick="loadVideo('media-m4','dlQX1pswPwA')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Morning · Exercise 4</div>
+        <div class="card-title">Doorway Chest Stretch</div>
+        <div class="card-desc">Place forearms on a door frame at 90°. Step forward gently until you feel a stretch across your chest and front of shoulders. Hold 20–30 seconds. Counters the tight pec minor that pulls the shoulder forward.</div>
+        <div class="card-footer">
+          <div class="tags">
+            <span class="tag tag-amber">Stretch</span>
+            <span class="tag tag-neutral">3 × 30 sec</span>
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/dlQX1pswPwA" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
     </div>
 
-    <div class="exercises">
+  </div>
+</div><!-- /morning -->
 
-      <!-- A. Band External Rotation -->
-      <div class="card">
-        <div class="card-media" id="media-w1a">
-          <img class="thumb" src="https://img.youtube.com/vi/hFerO2YGOz8/hqdefault.jpg" alt="Band External Rotation preview" />
-          <div class="play-btn" onclick="loadVideo('media-w1a','hFerO2YGOz8')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 1 · Exercise A</div>
-          <div class="card-title">Band External Rotation</div>
-          <div class="card-desc">
-            Anchor a light band at elbow height. Elbow tucked at your side, bent 90°. Rotate your forearm away from your body against band resistance, then return slowly. Targets the infraspinatus and teres minor.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Strengthening</span>
-              <span class="tag">3 × 15 reps</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/hFerO2YGOz8" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
+
+<!-- ══════════════════════════════════════════
+     WEEK 1
+══════════════════════════════════════════ -->
+<div class="section" id="tab-week1">
+
+  <div class="section-banner week1-banner" data-emoji="💙">
+    <div class="banner-badge">Foundation</div>
+    <h2>Week 1 — Foundation</h2>
+    <p>Low-load activation and neuromuscular control. These exercises re-establish the firing patterns of your rotator cuff without stressing healing tissue. Aim for 3–4 sessions this week.</p>
+  </div>
+
+  <div class="tips week1-tips">
+    <h4>💡 Week 1 Guidelines</h4>
+    <ul>
+      <li>Light resistance — fatigue is okay, pain is not.</li>
+      <li>Slow and controlled (2 sec up / 2 sec down).</li>
+      <li>Rest 60–90 seconds between sets.</li>
+      <li>Ice 10–15 min after if sore.</li>
+    </ul>
+  </div>
+
+  <div class="exercises">
+
+    <div class="card week1-card">
+      <div class="card-media" id="media-w1a">
+        <img class="thumb" src="https://img.youtube.com/vi/hFerO2YGOz8/hqdefault.jpg" alt="Band External Rotation" />
+        <div class="play-btn" onclick="loadVideo('media-w1a','hFerO2YGOz8')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         </div>
       </div>
-
-      <!-- B. Isometric Shoulder Abduction -->
-      <div class="card">
-        <div class="card-media" id="media-w1b">
-          <img class="thumb" src="https://img.youtube.com/vi/o1YzRuyJYnY/hqdefault.jpg" alt="Isometric Shoulder Abduction preview" />
-          <div class="play-btn" onclick="loadVideo('media-w1b','o1YzRuyJYnY')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 1 · Exercise B</div>
-          <div class="card-title">Isometric Shoulder Abduction</div>
-          <div class="card-desc">
-            Stand beside a wall with your injured arm against it. Press your arm outward into the wall with moderate force, hold 5–10 seconds, then relax. No joint motion = safe supraspinatus activation.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Isometric</span>
-              <span class="tag">3 × 10 holds</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/o1YzRuyJYnY" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
+      <div class="card-body">
+        <div class="card-label">Week 1 · A</div>
+        <div class="card-title">Band External Rotation</div>
+        <div class="card-desc">Anchor a light band at elbow height. Elbow tucked at your side, bent 90°. Rotate forearm away from your body against resistance, then return slowly. Targets the infraspinatus and teres minor.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-blue">Strengthening</span><span class="tag tag-neutral">3 × 15 reps</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/hFerO2YGOz8" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
         </div>
       </div>
-
-      <!-- C. Scaption Raises -->
-      <div class="card">
-        <div class="card-media" id="media-w1c">
-          <img class="thumb" src="https://img.youtube.com/vi/w5DFjHVskMc/hqdefault.jpg" alt="Scaption Raises preview" />
-          <div class="play-btn" onclick="loadVideo('media-w1c','w5DFjHVskMc')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 1 · Exercise C</div>
-          <div class="card-title">Scaption Raises</div>
-          <div class="card-desc">
-            Hold a very light weight or band, thumbs up, arms 30° in front of your body (scapular plane). Raise to shoulder height and lower slowly. This plane minimises impingement while maximising supraspinatus work.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Strengthening</span>
-              <span class="tag">3 × 12 reps</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/w5DFjHVskMc" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- D. Rows (Resistance Band) -->
-      <div class="card">
-        <div class="card-media" id="media-w1d">
-          <img class="thumb" src="https://img.youtube.com/vi/0qUC7wc6E2s/hqdefault.jpg" alt="Resistance Band Rows preview" />
-          <div class="play-btn" onclick="loadVideo('media-w1d','0qUC7wc6E2s')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 1 · Exercise D</div>
-          <div class="card-title">Rows (Resistance Band)</div>
-          <div class="card-desc">
-            Anchor a band at chest height. Standing upright, pull both handles toward your body, driving elbows back and squeezing shoulder blades together. Strengthens mid-trapezius and rhomboids for scapular control.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Strengthening</span>
-              <span class="tag">3 × 15 reps</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/0qUC7wc6E2s" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- E. Serratus Wall Pushups -->
-      <div class="card">
-        <div class="card-media" id="media-w1e">
-          <img class="thumb" src="https://img.youtube.com/vi/8m7pffdU8cM/hqdefault.jpg" alt="Serratus Wall Pushups preview" />
-          <div class="play-btn" onclick="loadVideo('media-w1e','8m7pffdU8cM')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 1 · Exercise E</div>
-          <div class="card-title">Serratus Wall Pushups</div>
-          <div class="card-desc">
-            Hands flat on a wall, arms straight. Lean in slightly, then push the wall away by protracting (spreading) your shoulder blades — your upper back rounds slightly. This isolates serratus anterior for scapular stability.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Strengthening</span>
-              <span class="tag">3 × 12 reps</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/8m7pffdU8cM" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /exercises -->
-  </div><!-- /week1 -->
-
-
-  <!-- ══ WEEK 2 ══ -->
-  <div class="section" id="tab-week2">
-    <div class="section-header">
-      <h2>📅 Week 2 <span class="badge">Load Progression</span></h2>
-      <p>Now that your shoulder is firing properly, we introduce more dynamic load. Sidelying ER adds gravity resistance, farmer carries build shoulder girdle stability, and incline pushups introduce controlled pressing.</p>
     </div>
 
-    <div class="tips">
-      <h4>💡 Week 2 Guidelines</h4>
-      <ul>
-        <li>Increase resistance only if Week 1 exercises felt pain-free.</li>
-        <li>Sidelying ER: use a very light dumbbell (1–3 lb) — this is harder than it looks.</li>
-        <li>Farmer carries: keep shoulders packed down and back throughout.</li>
-        <li>Incline pushups: adjust the angle to control difficulty — steeper = easier.</li>
-      </ul>
+    <div class="card week1-card">
+      <div class="card-media" id="media-w1b">
+        <img class="thumb" src="https://img.youtube.com/vi/o1YzRuyJYnY/hqdefault.jpg" alt="Isometric Shoulder Abduction" />
+        <div class="play-btn" onclick="loadVideo('media-w1b','o1YzRuyJYnY')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Week 1 · B</div>
+        <div class="card-title">Isometric Shoulder Abduction</div>
+        <div class="card-desc">Stand beside a wall with your injured arm against it. Press outward with moderate force, hold 5–10 seconds, then relax. No joint motion = safe supraspinatus activation.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-blue">Isometric</span><span class="tag tag-neutral">3 × 10 holds</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/o1YzRuyJYnY" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
     </div>
 
-    <div class="exercises">
-
-      <!-- F. Sidelying External Rotation -->
-      <div class="card">
-        <div class="card-media" id="media-w2f">
-          <img class="thumb" src="https://img.youtube.com/vi/xXuBlRT-7YY/hqdefault.jpg" alt="Sidelying External Rotation preview" />
-          <div class="play-btn" onclick="loadVideo('media-w2f','xXuBlRT-7YY')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 2 · Exercise F</div>
-          <div class="card-title">Sidelying External Rotation</div>
-          <div class="card-desc">
-            Lie on your unaffected side, injured arm on top, elbow bent 90° with a small towel roll under it. Rotate forearm up toward the ceiling, hold 1 sec, lower slowly. Gravity is the resistance — this directly loads the infraspinatus and teres minor.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Strengthening</span>
-              <span class="tag">3 × 12 reps</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/xXuBlRT-7YY" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
+    <div class="card week1-card">
+      <div class="card-media" id="media-w1c">
+        <img class="thumb" src="https://img.youtube.com/vi/w5DFjHVskMc/hqdefault.jpg" alt="Scaption Raises" />
+        <div class="play-btn" onclick="loadVideo('media-w1c','w5DFjHVskMc')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         </div>
       </div>
-
-      <!-- G. Farmer Carry -->
-      <div class="card">
-        <div class="card-media" id="media-w2g">
-          <img class="thumb" src="https://img.youtube.com/vi/6j4mc-3Ze50/hqdefault.jpg" alt="Farmer Carry preview" />
-          <div class="play-btn" onclick="loadVideo('media-w2g','6j4mc-3Ze50')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 2 · Exercise G</div>
-          <div class="card-title">Farmer Carry</div>
-          <div class="card-desc">
-            Hold a light-to-moderate weight in each hand (or just the affected side). Walk slowly with shoulders packed down and back, core braced, eyes forward. Builds rotator cuff endurance and scapular stability under axial load — great functional carry-over.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Stability</span>
-              <span class="tag">3 × 20–30 m</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/6j4mc-3Ze50" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
+      <div class="card-body">
+        <div class="card-label">Week 1 · C</div>
+        <div class="card-title">Scaption Raises</div>
+        <div class="card-desc">Hold a very light weight, thumbs up, arms 30° in front of your body (scapular plane). Raise to shoulder height and lower slowly. This plane minimises impingement while maximising supraspinatus work.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-blue">Strengthening</span><span class="tag tag-neutral">3 × 12 reps</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/w5DFjHVskMc" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
         </div>
       </div>
-
-      <!-- H. Incline Pushups -->
-      <div class="card">
-        <div class="card-media" id="media-w2h">
-          <img class="thumb" src="https://img.youtube.com/vi/Mc-Kdwnx_M8/hqdefault.jpg" alt="Incline Pushups preview" />
-          <div class="play-btn" onclick="loadVideo('media-w2h','Mc-Kdwnx_M8')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 2 · Exercise H</div>
-          <div class="card-title">Incline Pushups</div>
-          <div class="card-desc">
-            Hands on a bench, counter, or elevated surface. Lower chest toward surface with elbows at ~45° from the body, then push up fully. The incline reduces load vs floor pushups. Finish each rep by protracting the shoulder blades (serratus push-plus).
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Strengthening</span>
-              <span class="tag">3 × 10–15 reps</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/Mc-Kdwnx_M8" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /exercises -->
-  </div><!-- /week2 -->
-
-
-  <!-- ══ WEEK 3 ══ -->
-  <div class="section" id="tab-week3">
-    <div class="section-header">
-      <h2>📅 Week 3 <span class="badge">Sport Re-entry</span></h2>
-      <p>This week bridges rehab to real movement. Exercises mimic sport-specific patterns — overhead pressing, rotational punches, and pickleball swings — all at reduced load to train the shoulder for what matters to you.</p>
     </div>
 
-    <div class="tips">
-      <h4>💡 Week 3 Guidelines</h4>
-      <ul>
-        <li>Only start Week 3 if Week 2 exercises are pain-free with full range of motion.</li>
-        <li>Overhead press: start with very light dumbbells (3–5 lb). Stop if you feel impingement.</li>
-        <li>Pickleball simulation: focus on smooth, controlled swings — speed comes later.</li>
-        <li>If any exercise causes pain above 3/10, drop back to Week 2 for another session.</li>
-      </ul>
+    <div class="card week1-card">
+      <div class="card-media" id="media-w1d">
+        <img class="thumb" src="https://img.youtube.com/vi/0qUC7wc6E2s/hqdefault.jpg" alt="Resistance Band Rows" />
+        <div class="play-btn" onclick="loadVideo('media-w1d','0qUC7wc6E2s')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Week 1 · D</div>
+        <div class="card-title">Rows (Resistance Band)</div>
+        <div class="card-desc">Anchor a band at chest height. Pull both handles toward your body, driving elbows back and squeezing shoulder blades together. Strengthens mid-trapezius and rhomboids for scapular control.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-blue">Strengthening</span><span class="tag tag-neutral">3 × 15 reps</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/0qUC7wc6E2s" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
     </div>
 
-    <div class="exercises">
-
-      <!-- I. Resistance Band Punches -->
-      <div class="card">
-        <div class="card-media" id="media-w3i">
-          <img class="thumb" src="https://img.youtube.com/vi/4Yr5nrnEGjM/hqdefault.jpg" alt="Resistance Band Punches preview" />
-          <div class="play-btn" onclick="loadVideo('media-w3i','4Yr5nrnEGjM')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 3 · Exercise I</div>
-          <div class="card-title">Resistance Band Punches</div>
-          <div class="card-desc">
-            Anchor a light band behind you. With your elbow at shoulder height, push forward in a controlled punching motion, then return slowly. Trains the serratus anterior and rotator cuff in the same forward-reaching plane used in racquet and court sports.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Functional</span>
-              <span class="tag">3 × 15 reps/side</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/4Yr5nrnEGjM" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
+    <div class="card week1-card">
+      <div class="card-media" id="media-w1e">
+        <img class="thumb" src="https://img.youtube.com/vi/8m7pffdU8cM/hqdefault.jpg" alt="Serratus Wall Pushups" />
+        <div class="play-btn" onclick="loadVideo('media-w1e','8m7pffdU8cM')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         </div>
       </div>
-
-      <!-- J. Light Overhead Press -->
-      <div class="card">
-        <div class="card-media" id="media-w3j">
-          <img class="thumb" src="https://img.youtube.com/vi/88aQMOd3m4A/hqdefault.jpg" alt="Light Overhead Press preview" />
-          <div class="play-btn" onclick="loadVideo('media-w3j','88aQMOd3m4A')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 3 · Exercise J</div>
-          <div class="card-title">Light Overhead Press</div>
-          <div class="card-desc">
-            Press very light dumbbells (3–5 lb) from shoulder height to overhead with a neutral or slight inward grip. Lower slowly. This video covers shoulder-friendly technique and safe alternatives if you feel pinching. Build the overhead pattern before adding load.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag green">Strengthening</span>
-              <span class="tag">3 × 10 reps</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/88aQMOd3m4A" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
+      <div class="card-body">
+        <div class="card-label">Week 1 · E</div>
+        <div class="card-title">Serratus Wall Pushups</div>
+        <div class="card-desc">Hands flat on a wall, arms straight. Push the wall away by protracting (spreading) your shoulder blades — your upper back rounds slightly. Isolates serratus anterior for scapular stability.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-blue">Strengthening</span><span class="tag tag-neutral">3 × 12 reps</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/8m7pffdU8cM" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
         </div>
       </div>
-
-      <!-- K. Pickleball Swing Simulation -->
-      <div class="card">
-        <div class="card-media" id="media-w3k">
-          <img class="thumb" src="https://img.youtube.com/vi/ZvJmFl_ABVE/hqdefault.jpg" alt="Pickleball Swing Simulation preview" />
-          <div class="play-btn" onclick="loadVideo('media-w3k','ZvJmFl_ABVE')">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="40" cy="40" r="40" fill="rgba(255,255,255,0.15)"/>
-              <polygon points="32,22 62,40 32,58" fill="white"/>
-            </svg>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-label">Week 3 · Exercise K</div>
-          <div class="card-title">Pickleball Swing Simulation</div>
-          <div class="card-desc">
-            Shadow-swing forehand and backhand motions at slow, controlled speed — no ball, no paddle impact. Focus on smooth shoulder rotation and wrist follow-through. Groove the movement pattern before returning to the court. Use a light resistance band for added shoulder activation.
-          </div>
-          <div class="card-footer">
-            <div class="tags">
-              <span class="tag amber">Sport Prep</span>
-              <span class="tag">2 × 20 swings</span>
-            </div>
-            <a class="yt-btn" href="https://www.youtube.com/shorts/ZvJmFl_ABVE" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-              Watch Short
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /exercises -->
-  </div><!-- /week3 -->
-
-
-  <!-- ══ PICKLEBALL RULES ══ -->
-  <div class="section" id="tab-pickleball">
-    <div class="section-header">
-      <h2>🏓 Pickleball Rules <span class="badge">Next 6 Weeks</span></h2>
-      <p>You can play — but smart play protects your recovery. Follow these guidelines for the next 6 weeks to stay on the court without setting yourself back.</p>
     </div>
 
-    <div class="rules-grid">
+  </div>
+</div><!-- /week1 -->
 
-      <div class="rules-card allowed">
-        <div class="rules-icon">✅</div>
+
+<!-- ══════════════════════════════════════════
+     WEEK 2
+══════════════════════════════════════════ -->
+<div class="section" id="tab-week2">
+
+  <div class="section-banner week2-banner" data-emoji="💚">
+    <div class="banner-badge">Load Progression</div>
+    <h2>Week 2 — Load Progression</h2>
+    <p>Now that your shoulder is firing properly, we introduce more dynamic load. Sidelying ER adds gravity resistance, farmer carries build girdle stability, and incline pushups introduce controlled pressing.</p>
+  </div>
+
+  <div class="tips week2-tips">
+    <h4>💡 Week 2 Guidelines</h4>
+    <ul>
+      <li>Increase resistance only if Week 1 felt pain-free.</li>
+      <li>Sidelying ER: use a very light dumbbell (1–3 lb) — harder than it looks.</li>
+      <li>Farmer carries: shoulders packed down and back throughout.</li>
+      <li>Incline pushups: steeper angle = easier. Adjust to your level.</li>
+    </ul>
+  </div>
+
+  <div class="exercises">
+
+    <div class="card week2-card">
+      <div class="card-media" id="media-w2f">
+        <img class="thumb" src="https://img.youtube.com/vi/xXuBlRT-7YY/hqdefault.jpg" alt="Sidelying External Rotation" />
+        <div class="play-btn" onclick="loadVideo('media-w2f','xXuBlRT-7YY')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Week 2 · F</div>
+        <div class="card-title">Sidelying External Rotation</div>
+        <div class="card-desc">Lie on your unaffected side, injured arm on top, elbow bent 90° with a small towel roll under it. Rotate forearm up toward the ceiling, hold 1 sec, lower slowly. Gravity is the resistance — directly loads infraspinatus and teres minor.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-green">Strengthening</span><span class="tag tag-neutral">3 × 12 reps</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/xXuBlRT-7YY" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card week2-card">
+      <div class="card-media" id="media-w2g">
+        <img class="thumb" src="https://img.youtube.com/vi/5R6BlNpbmTk/hqdefault.jpg" alt="Farmer Carry" />
+        <div class="play-btn" onclick="loadVideo('media-w2g','5R6BlNpbmTk')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Week 2 · G</div>
+        <div class="card-title">Farmer Carry</div>
+        <div class="card-desc">Hold a light weight in each hand (or just the affected side). Walk with shoulders packed down and back, core braced. Builds rotator cuff endurance and scapular stability under axial load — great functional carry-over.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-green">Stability</span><span class="tag tag-neutral">3 × 20–30 m</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/5R6BlNpbmTk" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card week2-card">
+      <div class="card-media" id="media-w2h">
+        <img class="thumb" src="https://img.youtube.com/vi/Mc-Kdwnx_M8/hqdefault.jpg" alt="Incline Pushups" />
+        <div class="play-btn" onclick="loadVideo('media-w2h','Mc-Kdwnx_M8')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Week 2 · H</div>
+        <div class="card-title">Incline Pushups</div>
+        <div class="card-desc">Hands on a bench or counter. Lower chest with elbows at ~45° from the body, then push up fully. Incline reduces load vs floor pushups. Finish each rep by protracting shoulder blades (serratus push-plus).</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-green">Strengthening</span><span class="tag tag-neutral">3 × 10–15 reps</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/Mc-Kdwnx_M8" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /week2 -->
+
+
+<!-- ══════════════════════════════════════════
+     WEEK 3
+══════════════════════════════════════════ -->
+<div class="section" id="tab-week3">
+
+  <div class="section-banner week3-banner" data-emoji="💜">
+    <div class="banner-badge">Sport Re-entry</div>
+    <h2>Week 3 — Sport Re-entry</h2>
+    <p>This week bridges rehab to real movement. Exercises mimic sport-specific patterns — overhead pressing, rotational punches, and pickleball swings — all at reduced load to train the shoulder for what matters.</p>
+  </div>
+
+  <div class="tips week3-tips">
+    <h4>💡 Week 3 Guidelines</h4>
+    <ul>
+      <li>Only start if Week 2 is fully pain-free with full range of motion.</li>
+      <li>Overhead press: 3–5 lb max. Stop if you feel pinching.</li>
+      <li>Pickleball simulation: smooth, controlled swings — speed comes later.</li>
+      <li>Pain above 3/10? Drop back to Week 2 for another session.</li>
+    </ul>
+  </div>
+
+  <div class="exercises">
+
+    <div class="card week3-card">
+      <div class="card-media" id="media-w3i">
+        <img class="thumb" src="https://img.youtube.com/vi/4Yr5nrnEGjM/hqdefault.jpg" alt="Resistance Band Punches" />
+        <div class="play-btn" onclick="loadVideo('media-w3i','4Yr5nrnEGjM')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Week 3 · I</div>
+        <div class="card-title">Resistance Band Punches</div>
+        <div class="card-desc">Anchor a light band behind you. With your elbow at shoulder height, push forward in a controlled punching motion, then return slowly. Trains serratus anterior and rotator cuff in the same forward-reaching plane used in court sports.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-purple">Functional</span><span class="tag tag-neutral">3 × 15 reps/side</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/4Yr5nrnEGjM" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card week3-card">
+      <div class="card-media" id="media-w3j">
+        <img class="thumb" src="https://img.youtube.com/vi/88aQMOd3m4A/hqdefault.jpg" alt="Light Overhead Press" />
+        <div class="play-btn" onclick="loadVideo('media-w3j','88aQMOd3m4A')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Week 3 · J</div>
+        <div class="card-title">Light Overhead Press</div>
+        <div class="card-desc">Press very light dumbbells (3–5 lb) from shoulder height to overhead with a neutral or slight inward grip. Lower slowly. Covers shoulder-friendly technique and safe alternatives if you feel pinching.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-purple">Strengthening</span><span class="tag tag-neutral">3 × 10 reps</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/88aQMOd3m4A" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card week3-card">
+      <div class="card-media" id="media-w3k">
+        <img class="thumb" src="https://img.youtube.com/vi/ZvJmFl_ABVE/hqdefault.jpg" alt="Pickleball Swing Simulation" />
+        <div class="play-btn" onclick="loadVideo('media-w3k','ZvJmFl_ABVE')">
+          <div class="play-circle"><svg viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Week 3 · K</div>
+        <div class="card-title">Pickleball Swing Simulation</div>
+        <div class="card-desc">Shadow-swing forehand and backhand motions at slow, controlled speed — no ball, no impact. Focus on smooth shoulder rotation and wrist follow-through. Groove the pattern before returning to the court.</div>
+        <div class="card-footer">
+          <div class="tags"><span class="tag tag-purple">Sport Prep</span><span class="tag tag-neutral">2 × 20 swings</span></div>
+          <a class="yt-btn" href="https://www.youtube.com/shorts/ZvJmFl_ABVE" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            Watch Short
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /week3 -->
+
+
+<!-- ══════════════════════════════════════════
+     PICKLEBALL RULES
+══════════════════════════════════════════ -->
+<div class="section" id="tab-pickleball">
+
+  <div class="section-banner pickleball-banner" data-emoji="🏓">
+    <div class="banner-badge">Next 6 Weeks</div>
+    <h2>Pickleball Rules</h2>
+    <p>You can play — but smart play protects your recovery. Follow these guidelines for the next 6 weeks to stay on the court without setting yourself back.</p>
+  </div>
+
+  <div class="rules-grid">
+
+    <div class="rules-card allowed">
+      <div class="rules-card-header">
+        <div class="rules-icon-wrap">✅</div>
         <h3>Allowed</h3>
-        <ul class="rules-list">
-          <li>Dinking</li>
-          <li>Controlled rallies</li>
-          <li>Footwork drills</li>
-          <li>Backhand blocks</li>
-          <li>Moderate serves</li>
-        </ul>
       </div>
-
-      <div class="rules-card limit">
-        <div class="rules-icon">⚠️</div>
-        <h3>Limit</h3>
-        <ul class="rules-list">
-          <li>Hard overhead smashes</li>
-          <li>Repeated shoulder-height speedups</li>
-          <li>Aggressive serves</li>
-          <li>Playing multiple days in a row</li>
-        </ul>
-      </div>
-
-      <div class="rules-card ideal">
-        <div class="rules-icon">🎯</div>
-        <h3>Ideal Schedule</h3>
-        <ul class="rules-list" style="list-style:none;">
-          <li style="flex-direction:column; gap:4px;">
-            <span style="font-size:2rem; font-weight:800; color:var(--accent); line-height:1;">1</span>
-            <span style="color:var(--text); font-size:0.95rem; font-weight:600;">session per week max</span>
-            <span style="color:var(--muted); font-size:0.82rem; margin-top:2px;">for now. Your shoulder needs recovery time between sessions more than it needs court time.</span>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="after-play">
-      <h3>🧊 After Every Session</h3>
-      <div class="after-steps">
-        <div class="after-step">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <strong>Ice 10–15 minutes</strong>
-            <span>Wrap in a cloth — never ice directly on skin. Apply to the front and back of the shoulder.</span>
-          </div>
-        </div>
-        <div class="after-step">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <strong>Light stretching</strong>
-            <span>Run through your morning routine: pendulum swings, wall slides, and the doorway chest stretch.</span>
-          </div>
-        </div>
-        <div class="after-step">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <strong>No upper-body gym same day</strong>
-            <span>Your rotator cuff is already fatigued from play. Adding gym load the same day risks overuse injury.</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /pickleball -->
-
-
-  <!-- ══ GYM MODIFICATIONS ══ -->
-  <div class="section" id="tab-gym">
-    <div class="section-header">
-      <h2>🏋️ Gym Modifications <span class="badge">Temporary</span></h2>
-      <p>You don't have to stop going to the gym — just train around the shoulder. Here's what to skip and what to swap in while you recover.</p>
-    </div>
-
-    <div class="rules-grid">
-
-      <div class="rules-card limit">
-        <div class="rules-icon">🚫</div>
-        <h3>Avoid Temporarily</h3>
-        <ul class="rules-list">
-          <li>Heavy shoulder press</li>
-          <li>Upright rows</li>
-          <li>Heavy bench press</li>
-          <li>Lateral raises above shoulder height</li>
-          <li>Pullups</li>
-        </ul>
-      </div>
-
-      <div class="rules-card allowed">
-        <div class="rules-icon">💪</div>
-        <h3>Safer Options</h3>
-        <ul class="rules-list">
-          <li>Chest-supported rows</li>
-          <li>Cable rows</li>
-          <li>Leg work</li>
-          <li>Walking incline treadmill</li>
-          <li>Core work</li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="tips">
-      <h4>💡 Why These Swaps Work</h4>
-      <ul>
-        <li><strong style="color:var(--text)">Chest-supported &amp; cable rows</strong> — keep the shoulder in a safe, supported position while still training the back.</li>
-        <li><strong style="color:var(--text)">Leg &amp; core work</strong> — lets you train hard without any shoulder load. Don't let the injury be an excuse to lose lower-body fitness.</li>
-        <li><strong style="color:var(--text)">Incline treadmill</strong> — great cardio with near-zero shoulder stress. Arms stay relaxed at your sides.</li>
-        <li><strong style="color:var(--text)">Avoid upright rows</strong> — this movement internally rotates and impinges the shoulder at the exact angle that aggravates rotator cuff injuries.</li>
-        <li><strong style="color:var(--text)">Pullups</strong> — high tensile load through the shoulder at full overhead stretch. Re-introduce only when pain-free overhead range is fully restored.</li>
+      <ul class="rules-list">
+        <li><span class="bullet">✓</span> Dinking</li>
+        <li><span class="bullet">✓</span> Controlled rallies</li>
+        <li><span class="bullet">✓</span> Footwork drills</li>
+        <li><span class="bullet">✓</span> Backhand blocks</li>
+        <li><span class="bullet">✓</span> Moderate serves</li>
       </ul>
     </div>
 
-  </div><!-- /gym -->
+    <div class="rules-card limit">
+      <div class="rules-card-header">
+        <div class="rules-icon-wrap">⚠️</div>
+        <h3>Limit</h3>
+      </div>
+      <ul class="rules-list">
+        <li><span class="bullet">↓</span> Hard overhead smashes</li>
+        <li><span class="bullet">↓</span> Repeated shoulder-height speedups</li>
+        <li><span class="bullet">↓</span> Aggressive serves</li>
+        <li><span class="bullet">↓</span> Playing multiple days in a row</li>
+      </ul>
+    </div>
+
+    <div class="rules-card ideal">
+      <div class="rules-card-header">
+        <div class="rules-icon-wrap">🎯</div>
+        <h3>Ideal Schedule</h3>
+      </div>
+      <div>
+        <div class="ideal-big">1</div>
+        <div class="ideal-label">session per week max</div>
+        <div class="ideal-note">Your shoulder needs recovery time between sessions more than it needs court time right now.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="after-play">
+    <div class="after-play-header">
+      <div class="icon-wrap">🧊</div>
+      <h3>After Every Session</h3>
+    </div>
+    <div class="after-steps">
+      <div class="after-step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Ice 10–15 minutes</strong>
+          <span>Wrap in a cloth — never directly on skin. Apply to the front and back of the shoulder.</span>
+        </div>
+      </div>
+      <div class="after-step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>Light stretching</strong>
+          <span>Run through your morning routine: pendulum swings, wall slides, and the doorway chest stretch.</span>
+        </div>
+      </div>
+      <div class="after-step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>No upper-body gym same day</strong>
+          <span>Your rotator cuff is already fatigued from play. Adding gym load risks overuse injury.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /pickleball -->
+
+
+<!-- ══════════════════════════════════════════
+     GYM MODIFICATIONS
+══════════════════════════════════════════ -->
+<div class="section" id="tab-gym">
+
+  <div class="section-banner gym-banner" data-emoji="🏋️">
+    <div class="banner-badge">Temporary</div>
+    <h2>Gym Modifications</h2>
+    <p>You don't have to stop the gym — just train around the shoulder. Here's what to skip and what to swap in while you recover.</p>
+  </div>
+
+  <div class="rules-grid">
+
+    <div class="rules-card no-go">
+      <div class="rules-card-header">
+        <div class="rules-icon-wrap">🚫</div>
+        <h3>Avoid Temporarily</h3>
+      </div>
+      <ul class="rules-list">
+        <li><span class="bullet" style="color:#fb7185;">✕</span> Heavy shoulder press</li>
+        <li><span class="bullet" style="color:#fb7185;">✕</span> Upright rows</li>
+        <li><span class="bullet" style="color:#fb7185;">✕</span> Heavy bench press</li>
+        <li><span class="bullet" style="color:#fb7185;">✕</span> Lateral raises above shoulder height</li>
+        <li><span class="bullet" style="color:#fb7185;">✕</span> Pullups</li>
+      </ul>
+    </div>
+
+    <div class="rules-card allowed">
+      <div class="rules-card-header">
+        <div class="rules-icon-wrap">💪</div>
+        <h3>Safer Options</h3>
+      </div>
+      <ul class="rules-list">
+        <li><span class="bullet">✓</span> Chest-supported rows</li>
+        <li><span class="bullet">✓</span> Cable rows</li>
+        <li><span class="bullet">✓</span> Leg work</li>
+        <li><span class="bullet">✓</span> Walking incline treadmill</li>
+        <li><span class="bullet">✓</span> Core work</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="tips gym-tips">
+    <h4>💡 Why These Swaps Work</h4>
+    <ul>
+      <li><strong>Chest-supported &amp; cable rows</strong> — shoulder stays in a safe, supported position while still training the back.</li>
+      <li><strong>Leg &amp; core work</strong> — train hard without any shoulder load. Don't let the injury become an excuse to lose lower-body fitness.</li>
+      <li><strong>Incline treadmill</strong> — great cardio with near-zero shoulder stress. Arms stay relaxed at your sides.</li>
+      <li><strong>Upright rows</strong> — internally rotate and impinge the shoulder at the exact angle that aggravates rotator cuff injuries.</li>
+      <li><strong>Pullups</strong> — high tensile load at full overhead stretch. Re-introduce only when pain-free overhead range is fully restored.</li>
+    </ul>
+  </div>
+
+</div><!-- /gym -->
 
 </div><!-- /content -->
 
@@ -1197,15 +1202,14 @@
 
   /* ── LAZY VIDEO LOADER ── */
   function loadVideo(containerId, videoId) {
-    const container = document.getElementById(containerId);
-    if (container.classList.contains('playing')) return;
-
+    const el = document.getElementById(containerId);
+    if (el.classList.contains('playing')) return;
     const iframe = document.createElement('iframe');
     iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
     iframe.allow = 'autoplay; fullscreen; picture-in-picture';
     iframe.allowFullscreen = true;
-    container.appendChild(iframe);
-    container.classList.add('playing');
+    el.appendChild(iframe);
+    el.classList.add('playing');
   }
 </script>
 </body>
